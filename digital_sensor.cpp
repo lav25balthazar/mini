@@ -1,6 +1,6 @@
 #include "digital_sensor.h"
 #include <iostream>
-#include <Arduido.h>
+#include <Arduino.h>
 using namespace std;
 
 DigitalSensor::DigitalSensor(int pin){
@@ -8,7 +8,7 @@ DigitalSensor::DigitalSensor(int pin){
 }
 
 int DigitalSensor::readSensor(){
-  this->raw_reading = digialRead(this->pin); // sempre apontando como se fosse objeito, já que vai usar o pin do robot.h, sempre que mudar, muda também. sempre usar ponteiro.
+  this->raw_reading = digitalRead(this->pin); // sempre apontando como se fosse objeito, já que vai usar o pin do robot.h, sempre que mudar, muda também. sempre usar ponteiro.
 //  this->enemy_close = this->raw_reading<2000 ? true : false;
   if (raw_reading == 1)
     return true;

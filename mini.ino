@@ -1,11 +1,15 @@
-#include <robot.h>
+
+#include "robot.h"
+
+//#include <robot.h>
+
 
 
 #include "Arduino.h"
 
 void setup() 
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   pinMode(RIGHT_MOTOR_PWM_PIN, OUTPUT);
   pinMode(RIGHT_MOTOR_IN1_PIN, OUTPUT);
   pinMode(RIGHT_MOTOR_IN2_PIN, OUTPUT);
@@ -17,14 +21,14 @@ void setup()
   pinMode(RIGHT_SENSOR_PIN, INPUT);
   pinMode(MICRO_START_SIGNAL_PIN, INPUT);
   
-  pinMode(STDBY,OUTPUT);
-  digitalWrite(STDBY,HIGH);
+//  pinMode(STDBY,OUTPUT);   /comentei 29 nov 22
+//  digitalWrite(STDBY,HIGH); //comentei 29 nov 22
 
-  ledcAttachPin(LEFT_MOTOR_PWM_PIN, LEFT_MOTOR_CHANNEL);
-  ledcSetup(LEFT_MOTOR_CHANNEL, 12000, 8);
+//  ledcAttachPin(LEFT_MOTOR_PWM_PIN, LEFT_MOTOR_CHANNEL);        /comentei 29 nov 22
+//  ledcSetup(LEFT_MOTOR_CHANNEL, 12000, 8);                      /comentei 29 nov 22
 
-  ledcAttachPin(RIGHT_MOTOR_PWM_PIN, RIGHT_MOTOR_CHANNEL);
-  ledcSetup(RIGHT_MOTOR_CHANNEL, 12000, 8);
+//  ledcAttachPin(RIGHT_MOTOR_PWM_PIN, RIGHT_MOTOR_CHANNEL);      /comentei 29 nov 22
+//  ledcSetup(RIGHT_MOTOR_CHANNEL, 12000, 8);                     /comentei 29 nov 22
 }
 
 void loop() 
@@ -46,6 +50,6 @@ void loop()
 
   
   static Robot robot;
-  //robot.update();
-  robot.updateVaiTomarNoCuIron();
+  robot.update();
+  // robot.updateVaiTomarNoCuIron();
 }

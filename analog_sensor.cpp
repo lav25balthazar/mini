@@ -1,6 +1,6 @@
 #include "analog_sensor.h"
 #include <iostream>
-#include <Arduido.h>
+#include <Arduino.h>
 using namespace std;
 
 AnalogSensor::AnalogSensor(int pin){
