@@ -9,39 +9,39 @@ void updateEnemyPosition(DigitalSensor &front_sensor,
     AnalogSensor &left_sensor, 
     AnalogSensor &right_sensor){
 
-  if (front_sensor.enemy_close) {
-    this->enemy_position = EnemyPosition:: FRONT;
-    Serial.println("ah, ta ali na frente");
-    return;}
+  if (front_sensor.enemy_close != 0) {
+    EnemyPosition::FRONT;
+//  Serial.println("ah, ta ali na frente");  /conectar arduino
+    return;
     }
 //  ve na frente
-  if (right_sensor.distance_cm<20 && left_sensor > 20) {
-      this->enemy_position = EnemyPosition:: RIGHT;
-      Serial.println("ah, ta ali quase na direita");
+  if (right_sensor.distance_cm<20 && left_sensor.distance_cm > 20) {
+      EnemyPosition:: RIGHT;
+//    Serial.println("ah, ta ali quase na direita");   /conectar arduino
       return;  
       }
 //  ve na direita meio diagonal
-  if (full_right_sensor.enemy_close) {
-       this->enemy_position = EnemyPosition::FULL_RIGHT;
-       Serial.println("ah, ta ali na direita");
+  if (full_right_sensor.enemy_close != 0) {
+       EnemyPosition::FULL_RIGHT;
+//     Serial.println("ah, ta ali na direita"); /conectar arduino
        return;
     }
 //  ve totalmente na direita
-  if (full_left_sensor.enemy_close) {
-       this->enemy_position = EnemyPosition::FULL_LEFT;
-       Serial.println("ah, ta ali na esquerda");
+  if (full_left_sensor.enemy_close != 0) {
+       EnemyPosition::FULL_LEFT;
+//     Serial.println("ah, ta ali na esquerda");   / conectar arduino
        return;
    }
 // ve na esquerda
   if (left_sensor.distance_cm<20 && right_sensor.distance_cm>20) {
-        this->enemy_position = EnemyPosition::LEFT;
-        Serial.println("ah, ta ali quase na esquerda");
+        EnemyPosition::LEFT;
+//      Serial.println("ah, ta ali quase na esquerda");  / conectar arduino
         return;
     }
   //ve quase na esquerda
   if (left_sensor.distance_cm<20 && right_sensor.distance_cm<20){
-        this->enemy_position = EnemyPosition:: FRONT;
-        Serial.println("muito perto, vendo com 2 sensores");
+        EnemyPosition:: FRONT;
+//      Serial.println("muito perto, vendo com 2 sensores");   /conectar arduino
         return;
     }
   //oponente está muito perto, por isso os 2 sensores estão lendo e provavelmente o digital front também
