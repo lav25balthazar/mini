@@ -11,7 +11,7 @@ void updateEnemyPosition(DigitalSensor &front_sensor,
 
   if (front_sensor.enemy_close != 0) {
     EnemyPosition::FRONT;
-//  Serial.println("ah, ta ali na frente");  /conectar arduino
+  Serial.println("ah, ta ali na frente");  //conectar arduino
     return;
     }
 //  ve na frente
