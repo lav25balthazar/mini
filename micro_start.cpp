@@ -8,7 +8,7 @@ uStart::uStart(int signal_pin) {
   this->state = uStartState::STOP;
 }
 void uStart::update() {
-  Serial.println("estou na funcao do micro_strat uStart");
+  //Serial.println("estou na funcao do micro_strat uStart");
   bool leDigitalPin = digitalRead(this->signal_pin);
   if (leDigitalPin == 0)
     this->state = uStartState::STOP;
