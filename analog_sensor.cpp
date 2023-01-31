@@ -11,7 +11,7 @@ int AnalogSensor::readSensor() { //lê sensor analógico, dá uma leitura entre 
   //Serial.println("estou em analog_sensor, funcao readSensor");
   //Serial.println(raw_reading);
   if (raw_reading >= 0 && raw_reading <= 4095)
-    return (this->raw_reading*20.0)/2000.0;
+    return (int)((4095.0- (float)this->raw_reading)*(float)ANALOG_TO_CM);
   else
     return -1; // sensor com problema 
 
