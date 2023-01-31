@@ -8,10 +8,10 @@ DigitalSensor::DigitalSensor(int pin) {
 }
 
 int DigitalSensor::readSensor() {
-  Serial.println("estou em digital_sensor na funcao readSensor");
+  //Serial.println("estou em digital_sensor na funcao readSensor");
   this->raw_reading = digitalRead(this->pin); // sempre apontando como se fosse objeito, já que vai usar o pin do robot.h, sempre que mudar, muda também. sempre usar ponteiro.
   //  this->enemy_close = this->raw_reading<2000 ? true : false;
-  Serial.println(raw_reading);
+  //Serial.println(raw_reading);
   if (raw_reading == 1)
     return true;
   else
