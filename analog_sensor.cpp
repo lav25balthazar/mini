@@ -9,9 +9,9 @@ AnalogSensor::AnalogSensor(int pin) {
 int AnalogSensor::readSensor() { //lê sensor analógico, dá uma leitura entre 0 e 255 se lê algo
   this->raw_reading = analogRead(this->pin);
   //Serial.println("estou em analog_sensor, funcao readSensor");
-  Serial.println(raw_reading);
+  //Serial.println(raw_reading);
   if (raw_reading >= 0 && raw_reading <= 4095)
-    return this->raw_reading;
+    return (4095*10)/this->raw_reading;
   else
     return -1; // sensor com problema 
 
