@@ -9,7 +9,7 @@
 
 void setup() 
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(RIGHT_MOTOR_PWM_PIN, OUTPUT);
   pinMode(RIGHT_MOTOR_IN1_PIN, OUTPUT);
   pinMode(RIGHT_MOTOR_IN2_PIN, OUTPUT);
