@@ -9,16 +9,7 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
   AnalogSensor& left_sensor,
   AnalogSensor& right_sensor) {
 
-  Serial.println("esq: ");
-  left_sensor.distance_cm = left_sensor.readSensor(); // lê sensores analogicos chamando 
-  Serial.println(left_sensor.distance_cm);
-  Serial.println(" \t dir: ");
-  right_sensor.distance_cm = right_sensor.readSensor(); // a funcao readSensor do analog_sensor
-  Serial.println(right_sensor.distance_cm);
-  
-  front_sensor.enemy_close = front_sensor.readSensor(); // le sensores digitais chamando a 
-  full_left_sensor.enemy_close = full_left_sensor.readSensor(); // funcao readSensor
-  full_right_sensor.enemy_close = full_right_sensor.readSensor(); // do digital_sensor
+ 
 
   //Serial.println("estou em vision updateEnemyPosition");
   if (front_sensor.enemy_close != 0) {
