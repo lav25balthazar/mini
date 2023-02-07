@@ -33,6 +33,9 @@ void Robot::update() {
   //Serial.println("estou na robot em funcao update");
   if (uStartState::START) // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
     this->robot_state = RobotState::INITIAL_STRATEGY;
+    while(uStartState::START){
+       aurora.readSensors();
+       this->robot_state = RobotState::AUTO_STRATEGY;}
   else
     this->robot_state = RobotState::STOPPED;
 }
