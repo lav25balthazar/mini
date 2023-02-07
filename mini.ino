@@ -51,7 +51,7 @@ void loop()
   
   static Robot aurora;
   aurora.update();
-  aurora.readSensors();
+  
   
   // robot.updateVaiTomarNoCuIron();
 }
