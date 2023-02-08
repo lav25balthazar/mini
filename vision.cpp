@@ -9,6 +9,7 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
   AnalogSensor& left_sensor,
   AnalogSensor& right_sensor) {
 
+<<<<<<< HEAD
 //   Serial.println("esq: ");
 //   left_sensor.distance_cm = left_sensor.readSensor(); // lê sensores analogicos chamando 
 //   Serial.println(left_sensor.distance_cm);
@@ -21,6 +22,9 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
 //   full_right_sensor.enemy_close = full_right_sensor.readSensor(); // do digital_sensor
   //comentando porque não é uma boa pratica atualizar sensores em mais de um lugar
 
+=======
+ 
+>>>>>>> filtro_perobeli
 
   //Serial.println("estou em vision updateEnemyPosition");
   if (front_sensor.enemy_close != 0) {
