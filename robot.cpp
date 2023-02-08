@@ -34,7 +34,7 @@ void Robot::update() {
   if (ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
     this->robot_state = RobotState::INITIAL_STRATEGY; // colocar estrategia inicial (que no caso não fiz ainda)
     aurora.readSensors();
-    this->auto_strategy = autonoma.updateMotors(this->vision, this->left_motor, this->right_motor);
+    this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
     this->robot_state = RobotState::AUTO_STRATEGY;}
   else
     this->robot_state = RobotState::STOPPED;
