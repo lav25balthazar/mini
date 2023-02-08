@@ -17,15 +17,6 @@ int AnalogSensor::readSensor() { //lê sensor analógico, dá uma leitura entre 
   else
     return -1; // sensor com problema 
 }
-int AnalogSensor::filterSensor(){ // tentando colocar o filtro do codigo antigo, tentando e falhando
-  // mea = this->raw_reading; ?
-   _kalman_gain = _err_estimate/(_err_estimate + _err_measure);
-  _current_estimate = _last_estimate + _kalman_gain * (mea - _last_estimate); //mea: quanto que o sensor pode variar (ver isso)
-  _err_estimate =  (1.0 - _kalman_gain)*_err_estimate + fabs(_last_estimate-_current_estimate)*_q;
-  _last_estimate=_current_estimate;
 
-  return _current_estimate;
-  
-}
   
   
