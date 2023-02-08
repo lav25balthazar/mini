@@ -3,7 +3,7 @@
 
 using namespace std;
 
-AutoStrategy autonoma;
+
 void AutoStrategy::updateMotors(Vision &vision, MotorControl &left_motor, MotorControl &right_motor){
     if(vision.enemy_position==EnemyPosition::RIGHT){
         left_motor.setPower(90);
