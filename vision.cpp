@@ -9,22 +9,6 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
   AnalogSensor& left_sensor,
   AnalogSensor& right_sensor) {
 
-<<<<<<< HEAD
-=======
-//   Serial.println("esq: ");
-//   left_sensor.distance_cm = left_sensor.readSensor(); // lê sensores analogicos chamando 
-//   Serial.println(left_sensor.distance_cm);
-//   Serial.println(" \t dir: ");
-//   right_sensor.distance_cm = right_sensor.readSensor(); // a funcao readSensor do analog_sensor
-//   Serial.println(right_sensor.distance_cm);
-  
-//   front_sensor.enemy_close = front_sensor.readSensor(); // le sensores digitais chamando a 
-//   full_left_sensor.enemy_close = full_left_sensor.readSensor(); // funcao readSensor
-//   full_right_sensor.enemy_close = full_right_sensor.readSensor(); // do digital_sensor
-  //comentando porque não é uma boa pratica atualizar sensores em mais de um lugar
-
-
->>>>>>> c2944fb06d3abfd21d398011394a6a126a57994b
   //Serial.println("estou em vision updateEnemyPosition");
   if (front_sensor.enemy_close != 0) {
     this-> enemy_position = EnemyPosition::FRONT;
@@ -34,40 +18,34 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
   //  ve na frente
   else if (right_sensor.distance_cm < 20 && left_sensor.distance_cm > 20) {
     this-> enemy_position =EnemyPosition::RIGHT;
-    Serial.println("RIGHT");
+    //Serial.println("ah, ta ali quase na direita");
     return;
   }
   //  ve na direita meio diagonal
   else if (full_right_sensor.enemy_close != 0) {
     this-> enemy_position =EnemyPosition::FULL_RIGHT;
-    Serial.println("FULL_RIGHT");
+    //Serial.println("ah, ta ali na direita");
     return;
   }
   //  ve totalmente na direita
   else if (full_left_sensor.enemy_close != 0) {
     this-> enemy_position =EnemyPosition::FULL_LEFT;
-    Serial.println("FULL_LEFT");
+    //Serial.println("ah, ta ali na esquerda");
     return;
   }
   // ve na esquerda
   else if (left_sensor.distance_cm < 20 && right_sensor.distance_cm>20) {
     this-> enemy_position =EnemyPosition::LEFT;
-    Serial.println("LEFT");
+    //Serial.println("ah, ta ali quase na esquerda");
     return;
   }
   //ve quase na esquerda
   else if (left_sensor.distance_cm < 20 && right_sensor.distance_cm < 20) {
     this-> enemy_position =EnemyPosition::FRONT;
-    Serial.println("FRONT");
+    //Serial.println("muito perto, vendo com 2 sensores");
     return;
   }
   //oponente está muito perto, por isso os 2 sensores estão lendo e provavelmente o digital front também
-  else{
-<<<<<<< HEAD
-    Serial.println("nao está lendo nada");}
+  else
+    //Serial.println("nao está lendo nada");
 }
-=======
-    Serial.println("nao está lendo nada");
-  }
-}
->>>>>>> c2944fb06d3abfd21d398011394a6a126a57994b
