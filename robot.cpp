@@ -36,6 +36,9 @@ void Robot::update() {
     readSensors();
     this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
     this->robot_state = RobotState::AUTO_STRATEGY;}
-  else
+  else{
     this->robot_state = RobotState::STOPPED;
+    left_motor.setPower(0);
+    right_motor.setPower(0);    
+  }      
 }
