@@ -9,12 +9,12 @@ Move::Move(int left_motor_power, int right_motor_power, int time_ms){
     this->time_ms = time_ms; //tempo para movimentação já com o delay (eu imagino)
     this->started = false;  //micro start ainda nao deu sinal
     this->finished = false; //movimentação não terminou (nem começou)
-    this->start_time_ms = 5000; //tempo que começa movimentação (delay 5s) conferir se ainda é o mesmo
+    this->start_time_ms = 0; //tempo que começa movimentação (delay 5s) conferir se ainda é o mesmo e se é necessário colocar nos cálculos para iniciar movimento 
 };
 //retorno paa saber se a movimentação já terminou
 bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     // começa movimentação depois do delay    
-    if (this->start_time_ms >= 5000){
+    if (this->start_time_ms >= 0){
       this->started = true;
     }
     // quando passa o tempo de movimentação, em tese, significa que ela já terminou   (saber se o delay está incluído em time_ms)   
