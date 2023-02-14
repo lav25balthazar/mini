@@ -28,26 +28,14 @@ void Robot::readSensors() {
 
 }
 void Robot::update() {
-  uStart(MICRO_START_SIGNAL_PIN) = ustart;
-  //Serial.println("estou na robot em funcao update");
+  this->ustart.update();
+  this->readSensors();
+  this->vision.updateEnemyPosition(this->front_sensor, this->full_left_sensor, this->full_right_sensor, this->left_sensor, this->right_sensor);
+  
   if (ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
-    this->robot_state = RobotState::INITIAL_STRATEGY; // colocar estrategia inicial (que no caso não fiz ainda)
-    readSensors();
-    //movimentacao quando aciona o microstart
-    static Move move(80, 100, 200); //usar static para acessar classe sem objeto
-      move.update(this->left_motor, this->right_motor);
-    //  move->left_motor_power = 50;
-    //  move->right_motor_power = 50;
-    //  move->time_ms = 1000;
-    //  move.update(this->left_motor, this->right_motor);
-    //  move->left_motor_power = 100;
-    //  move->right_power = 80;
-    //  move->time_ms = 400;      
-    static Move move2(50, 50, 1000);
-      move2.update(this->left_motor, this->right_motor); 
-    static Move move3(100, 80, 400);
-      move3.update(this->left_motor, this->right_motor);
-    //termina movimetacao                   
+    this->robot_state = RobotState::INITIAL_STRATEGY;
+    this->initial_strategy = get_selected_strategy(STRATEGY_PIN_A, STRATEGY_PIN_B, STRATEGY_PIN_C);
+    //parei aqui 14/02/2023                                                 
     this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
     this->robot_state = RobotState::AUTO_STRATEGY;}
   else{

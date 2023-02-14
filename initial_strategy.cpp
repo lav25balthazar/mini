@@ -30,6 +30,55 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
       left_motor.setPower(this->left_motor_power);            
     }
     return finished;
-}
+};
 
+InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(moves.front()){
+  this->moves = moves;
+  this->strategy_finished = false;  //indica se estratégia incial foi concluída ou não
+};
+bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor){
+  this->current_move.update(left_motor, right_motor); 
+  //atualizando o objeto current_move em sua classe, para saber qual a movimentação atual., nocaso, se ela já terminou ou não
+  this->strategy_finished = (this->current_move.finished) ? true : false; 
+  //retorna true se o movimento inicial escolhido foi terminado, false caso contrário.
+};
+
+InitialStrategy* get_selected_strategy(int pinA, int pinB, int pinC){
+  bool strategyA = digitalRead(pinA);
+  bool strategyB = digitalRead(pinB);
+  bool strategyC = digitalRead(pinC);
+  char strategy;
+  
+  if (strategyA == true)
+    strategy = 'a';
+  if (strategyB == true)
+    strategy = 'b';
+  if (strategyC == true)
+    strategy = 'c'; 
+
+  list<Move> moves = {};
+  
+  switch (strategy){
+    case 'a':
+      moves.push_back(Move(100,100,100));
+      moves.push_back(Move(100,80,200));
+      moves.push_back(Move(100,100,100));
+      moves.push_back(Move(80,100,200));
+      break;
+    case 'b':
+      moves.push_back(Move(100,90,200));
+      moves.push_back(Move(90,100,100));
+      moves.push_back(Move(100,100,500));
+      moves.push_back(Move(100,80,200));
+      break;
+    case 'c':
+      moves.push_back(Move(90,100,300));
+      moves.push_back(Move(100,100,200));
+      moves.push_back(Move(100,90,100)); 
+      moves.push_back(Move(80,100,200));  
+      break;         
+
+  return new InitialStrategy(moves);                      
+  }
+}
 
