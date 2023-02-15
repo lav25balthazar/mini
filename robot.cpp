@@ -35,9 +35,13 @@ void Robot::update() {
   if (ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
     this->robot_state = RobotState::INITIAL_STRATEGY;
     this->initial_strategy = get_selected_strategy(STRATEGY_PIN_A, STRATEGY_PIN_B, STRATEGY_PIN_C);
-    //parei aqui 14/02/2023                                                 
-    this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
-    this->robot_state = RobotState::AUTO_STRATEGY;}
+    this->initial_strategy.update(this->left_motor, this->right_motor);
+    if(this->initial_strategy.update(this->left_motor, this->right_motor == true){
+       this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor)
+       this->robot_state = RobotState::AUTO_STRATEGY;       
+    }                                                     
+    
+    }
   else{
     this->robot_state = RobotState::STOPPED;
     left_motor.setPower(0);

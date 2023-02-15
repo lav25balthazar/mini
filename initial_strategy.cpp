@@ -10,7 +10,7 @@ Move::Move(int left_motor_power, int right_motor_power, int time_ms){
     this->started = false;  //micro start ainda nao deu sinal
     this->finished = false; //movimentação não terminou (nem começou)
     this->start_time_ms = 0; //tempo que começa movimentação  
-};
+}
 //retorno paa saber se a movimentação já terminou
 bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     // começa movimentação     
@@ -30,18 +30,23 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
       left_motor.setPower(this->left_motor_power);            
     }
     return finished;
-};
+}
 
 InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(moves.front()){
   this->moves = moves;
+  this->moves.pop_front();
   this->strategy_finished = false;  //indica se estratégia incial foi concluída ou não
 };
 bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor){
-  this->current_move.update(left_motor, right_motor); 
-  //atualizando o objeto current_move em sua classe, para saber qual a movimentação atual., nocaso, se ela já terminou ou não
+  bool move_status = this->current_move.update(left_motor, right_motor);
+    
+  if (move_status == false){      
+    this->current_move = this->moves.front();
+    this->current_move = this->moves.pop_front();    
+  }  
   this->strategy_finished = (this->current_move.finished) ? true : false; 
   //retorna true se o movimento inicial escolhido foi terminado, false caso contrário.
-};
+}
 
 InitialStrategy* get_selected_strategy(int pinA, int pinB, int pinC){
   bool strategyA = digitalRead(pinA);
