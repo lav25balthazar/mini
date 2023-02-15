@@ -34,18 +34,28 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
 
 InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(moves.front()){
   this->moves = moves;
-  this->moves.pop_front();
   this->strategy_finished = false;  //indica se estratégia incial foi concluída ou não
 };
 bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor){
   bool move_status = this->current_move.update(left_motor, right_motor);
     
-  if (move_status == false){      
-    this->current_move = this->moves.front();
-    this->current_move = this->moves.pop_front();    
+  if (move_status == false){
+    this->current_move = this->moves.front();    
+    this->moves.pop_front();
+    this->current_move = this->moves.front();    
+    this->moves.pop_front();
+    this->current_move = this->moves.front();    
+    this->moves.pop_front();
+    this->current_move = this->moves.front();    
+    this->moves.pop_front();    
   }  
-  this->strategy_finished = (this->current_move.finished) ? true : false; 
-  //retorna true se o movimento inicial escolhido foi terminado, false caso contrário.
+  if (this->moves.empty())
+    this->strategy_finished = true;
+  else
+    this->strategy_finished = false;
+
+  return strategy_finished;
+  //retorna se o movimento inicial escolhido foi terminado ou  não
 }
 
 InitialStrategy* get_selected_strategy(int pinA, int pinB, int pinC){
