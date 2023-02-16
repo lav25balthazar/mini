@@ -6,6 +6,7 @@ class SimpleFilter{
     
 public:
   SimpleFilter(float _err_measure, float _err_estimate, float _q);
+  SimpleFilter();
   float updateEstimate(float mea);    
  // variaveis do filto
   float _err_measure = 5;

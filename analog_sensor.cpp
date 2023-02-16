@@ -5,7 +5,7 @@
 
 using namespace std;
 
-AnalogSensor::AnalogSensor(int pin): filter(this->filter._err_measure, this->filter._err_estimate, this->filter._q) {
+AnalogSensor::AnalogSensor(int pin): filter() {
   this->pin = pin;
 }
 int AnalogSensor::readSensor() { //lê sensor analógico, dá uma leitura entre 0 e 255/4095 se lê algo

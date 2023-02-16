@@ -2,6 +2,9 @@
 #include "simple_filter.h"
 #include <math.h>
 
+SimpleFilter::SimpleFilter(){
+  
+}
 SimpleFilter::SimpleFilter(float _err_measure, float _err_estimate, float _q){
   this->_err_measure= _err_measure;
   this->_err_estimate= _err_estimate;
