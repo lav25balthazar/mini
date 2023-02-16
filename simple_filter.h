@@ -5,6 +5,7 @@
 class SimpleFilter{
     
 public:
+  SimpleFilter(float mea_e, float est_e, float q);
   float updateEstimate(float mea);    
 private: // variaveis do filto
   float _err_measure;
