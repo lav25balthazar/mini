@@ -11,8 +11,7 @@ Robot::Robot():front_sensor(FRONT_SENSOR_PIN), full_left_sensor(FULL_LEFT_SENSOR
 }
 
 void Robot::readSensors() {
-  
-  //Serial.println("estou na funcao readSensors");
+
   
   Serial.println("esq: ");
   this->left_sensor.readSensor(); // lê sensores analogicos chamando 
@@ -34,6 +33,18 @@ void Robot::update() {
   this->vision.updateEnemyPosition(this->front_sensor, this->full_left_sensor, this->full_right_sensor, this->left_sensor, this->right_sensor);
   if (this->ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
     this->robot_state = RobotState::INITIAL_STRATEGY; // colocar estrategia inicial (que no caso não fiz ainda)
+
+    readSensors();
+    //movimentacao quando aciona o microstart
+    static Move move_esq(80, 100, 200); //usar static para acessar classe sem objeto
+      move_esq.update(this->left_motor, this->right_motor);
+    if (move_esq.update(this->left_motor, this->right_motor) != 0){   
+      static Move move_front(50, 50, 1000);
+        move_front.update(this->left_motor, this->right_motor);}
+    if (move_front.update(this->left_motor, this->right_motor) != 0){         //add condição para servir de controle dos movimentos
+      static Move move_dir(100, 80, 400);
+        move_dir.update(this->left_motor, this->right_motor);
+    //termina movimetacao                   
     this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
     this->robot_state = RobotState::AUTO_STRATEGY;}
   else{
