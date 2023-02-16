@@ -11,7 +11,7 @@ Robot::Robot():front_sensor(FRONT_SENSOR_PIN), full_left_sensor(FULL_LEFT_SENSOR
 }
 
 void Robot::readSensors() {
- 
+
   
   Serial.println("esq: ");
   this->left_sensor.readSensor(); // lê sensores analogicos chamando 
@@ -28,10 +28,12 @@ void Robot::readSensors() {
 
 }
 void Robot::update() {
-  uStart(MICRO_START_SIGNAL_PIN) = ustart;
-  //Serial.println("estou na robot em funcao update");
-  if (ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
+  this->ustart.update();
+  this->readSensors();
+  this->vision.updateEnemyPosition(this->front_sensor, this->full_left_sensor, this->full_right_sensor, this->left_sensor, this->right_sensor);
+  if (this->ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
     this->robot_state = RobotState::INITIAL_STRATEGY; // colocar estrategia inicial (que no caso não fiz ainda)
+
     readSensors();
     //movimentacao quando aciona o microstart
     static Move move_esq(80, 100, 200); //usar static para acessar classe sem objeto
