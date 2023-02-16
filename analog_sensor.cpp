@@ -10,8 +10,9 @@ int AnalogSensor::readSensor() { //lê sensor analógico, dá uma leitura entre 
   this->raw_reading = analogRead(this->pin);
   //Serial.println("estou em analog_sensor, funcao readSensor");
   //Serial.println(raw_reading);
-  if (raw_reading >= 0 && raw_reading <= 4095)
-    return (int)((4095.0- (float)this->raw_reading)*(float)ANALOG_TO_CM); //conta do billy para converter (perguntar)
+  if (raw_reading >= 0 && raw_reading <= 4095){
+    this->distance_cm = (int)((4095.0- (float)this->raw_reading)*(float)ANALOG_TO_CM);
+    return distance_cm;} //conta do billy para converter (perguntar)
   else
     return -1; // sensor com problema 
 
