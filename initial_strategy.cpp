@@ -44,26 +44,14 @@ bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor
     move_status = this->current_move.update(left_motor, right_motor);    
     this->moves.pop_front();
     
-    if (move_status == true){             
-      this->current_move = this->moves.front();
-      move_status = this->current_move.update(left_motor, right_motor);    
-      this->moves.pop_front();}
+  if (move_status == true){             
+      if(this->moves.empty())
+        this->strategy_finished = true;
+      else
+        this->strategy_finished = false;}
 
-    if (move_status == true){             
-      this->current_move = this->moves.front();
-      move_status = this->current_move.update(left_motor, right_motor);    
-      this->moves.pop_front();}
-
-    if (move_status == true){             
-      this->current_move = this->moves.front();
-      move_status = this->current_move.update(left_motor, right_motor);    
-      this->moves.pop_front();}    
        
   }  
-  if (this->moves.empty())
-    this->strategy_finished = true;
-  else
-    this->strategy_finished = false;
 
   return strategy_finished;
   //retorna se o movimento inicial escolhido foi terminado ou  não
