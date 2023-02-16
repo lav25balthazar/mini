@@ -34,19 +34,14 @@ void Robot::update() {
     this->robot_state = RobotState::INITIAL_STRATEGY; // colocar estrategia inicial (que no caso não fiz ainda)
     readSensors();
     //movimentacao quando aciona o microstart
-    static Move move(80, 100, 200); //usar static para acessar classe sem objeto
-      move.update(this->left_motor, this->right_motor);
-    //  move->left_motor_power = 50;
-    //  move->right_motor_power = 50;
-    //  move->time_ms = 1000;
-    //  move.update(this->left_motor, this->right_motor);
-    //  move->left_motor_power = 100;
-    //  move->right_power = 80;
-    //  move->time_ms = 400;      
-    static Move move2(50, 50, 1000);
-      move2.update(this->left_motor, this->right_motor); 
-    static Move move3(100, 80, 400);
-      move3.update(this->left_motor, this->right_motor);
+    static Move move_esq(80, 100, 200); //usar static para acessar classe sem objeto
+      move_esq.update(this->left_motor, this->right_motor);
+    if (move_esq.update(this->left_motor, this->right_motor) != 0){   
+      static Move move_front(50, 50, 1000);
+        move_front.update(this->left_motor, this->right_motor);}
+    if (move_front.update(this->left_motor, this->right_motor) != 0){         //add condição para servir de controle dos movimentos
+      static Move move_dir(100, 80, 400);
+        move_dir.update(this->left_motor, this->right_motor);
     //termina movimetacao                   
     this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
     this->robot_state = RobotState::AUTO_STRATEGY;}
