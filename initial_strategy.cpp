@@ -32,7 +32,7 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     return finished;
 }
 
-InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(moves.front()){
+InitialStrategy::InitialStrategy(list<Move> moves): current_move(moves.front()){
   this->moves = moves;
   this->strategy_finished = false;  //indica se estratégia incial foi concluída ou não
 };
@@ -40,14 +40,25 @@ bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor
   bool move_status = this->current_move.update(left_motor, right_motor);
     
   if (move_status == false){
-    this->current_move = this->moves.front();    
+    this->current_move = this->moves.front();
+    move_status = this->current_move.update(left_motor, right_motor);    
     this->moves.pop_front();
-    this->current_move = this->moves.front();    
-    this->moves.pop_front();
-    this->current_move = this->moves.front();    
-    this->moves.pop_front();
-    this->current_move = this->moves.front();    
-    this->moves.pop_front();    
+    
+    if (move_status == true){             
+      this->current_move = this->moves.front();
+      move_status = this->current_move.update(left_motor, right_motor);    
+      this->moves.pop_front();}
+
+    if (move_status == true){             
+      this->current_move = this->moves.front();
+      move_status = this->current_move.update(left_motor, right_motor);    
+      this->moves.pop_front();}
+
+    if (move_status == true){             
+      this->current_move = this->moves.front();
+      move_status = this->current_move.update(left_motor, right_motor);    
+      this->moves.pop_front();}    
+       
   }  
   if (this->moves.empty())
     this->strategy_finished = true;
