@@ -2,15 +2,15 @@
 #include "simple_filter.h"
 #include <math.h>
 
-SimpleFilter::SimpleFilter(float this->mea_e, float this->est_e, float this->q){
-  this->_err_measure=this->mea_e;
-  this->_err_estimate= this->est_e;
-  this->_q = this->q;
+SimpleFilter::SimpleFilter(float _err_measure, float _err_estimate, float _q){
+  this->_err_measure= _err_measure;
+  this->_err_estimate= _err_estimate;
+  this->_q = _q;
 }
 
-float SimpleFilter::updateEstimate(float this->mea){
+float SimpleFilter::updateEstimate(float mea){
   this->_kalman_gain = this->_err_estimate/(this->_err_estimate + this->_err_measure);
-  this->_current_estimate = this->_last_estimate + this->_kalman_gain * (this->mea - this->_last_estimate);
+  this->_current_estimate = this->_last_estimate + this->_kalman_gain * (mea - this->_last_estimate);
   this->_err_estimate =  (1.0 - this->_kalman_gain)*this->_err_estimate + fabs(this->_last_estimate-this->_current_estimate)*this->_q;
   this->_last_estimate=this->_current_estimate;
 

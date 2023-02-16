@@ -15,7 +15,7 @@ void Robot::readSensors() {
   //Serial.println("estou na funcao readSensors");
   
   Serial.println("esq: ");
-  this->left_sensor.distance_cm = this->left_sensor.readSensor(); // lê sensores analogicos chamando 
+  this->left_sensor.distance_cm = this->left_sensor.readSensor(); // lê sensores analogicos chamando   
   Serial.println(this->left_sensor.distance_cm);
   Serial.println(" \t dir: ");
   this->right_sensor.distance_cm = this->right_sensor.readSensor(); // a funcao readSensor do analog_sensor
