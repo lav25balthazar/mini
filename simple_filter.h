@@ -4,14 +4,8 @@
 
 class SimpleFilter{
     
-public
-
-}
-
-
-
-
-
+public:
+  float updateEstimate(float mea);    
 private: // variaveis do filto
   float _err_measure;
   float _err_estimate;
@@ -19,7 +13,7 @@ private: // variaveis do filto
   float _current_estimate = 0;
   float _last_estimate = 0;
   float _kalman_gain = 0;
-
+};
 
 
 #endif
