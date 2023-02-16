@@ -10,7 +10,6 @@
 #include "motor_control.h"
 #include "vision.h"
 #include "strategy.h"
-#include "simple_filter.h"
 
 using namespace std;
 
