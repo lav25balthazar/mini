@@ -1,5 +1,6 @@
 #ifndef ANALOG_SENSOR_H
 #define ANALOG_SENSOR_H
+#include "simple_filter.h"
 
 #define ANALOG_TO_CM ((float)(20.0 / 2000.0))
 
@@ -11,7 +12,7 @@ public:
     int distance_cm;
     int pin;
     int readSensor();
-    int filterSensor();
+    SimpleFilter filter;
     AnalogSensor(int pin);
 };
 
