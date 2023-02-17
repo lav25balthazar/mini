@@ -14,11 +14,12 @@ Move::Move(int left_motor_power, int right_motor_power, int time_ms){
 //retorno paa saber se a movimentação já terminou
 bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     // começa movimentação     
-    if (this->start_time_ms >= 0){
+    if (this->start_time_ms == 0){
+      this->start_time_ms = millis();
       this->started = true;
     }
     // quando passa o tempo de movimentação, em tese, significa que ela já terminou    
-    if(millis() - this->start_time_ms >= this->time_ms){
+    if((millis() - this->start_time_ms) >= this->time_ms){
       this->finished == true;
       right_motor.setPower(0); 
       left_motor.setPower(0);
