@@ -9,10 +9,11 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
   AnalogSensor& left_sensor,
   AnalogSensor& right_sensor) {
 
+
   //Serial.println("estou em vision updateEnemyPosition");
   if (front_sensor.enemy_close != 0) {
     this-> enemy_position = EnemyPosition::FRONT;
-    //Serial.println("ah, ta ali na frente");
+    Serial.println("FRONT");
     return;
   }
   //  ve na frente

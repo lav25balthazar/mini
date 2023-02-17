@@ -11,31 +11,43 @@ Robot::Robot():front_sensor(FRONT_SENSOR_PIN), full_left_sensor(FULL_LEFT_SENSOR
 }
 
 void Robot::readSensors() {
-  //  vision.updateEnemyPosition(); tentando colocar vision na robot 06/12/2022 // continuação de tentativas 07/12/2022 // tentando 08/10/22 
-  //Serial.println("estou na funcao readSensors");
+ 
   
   Serial.println("esq: ");
-  this->left_sensor.distance_cm = this->left_sensor.readSensor(); // lê sensores analogicos chamando   
+  this->left_sensor.readSensor(); // lê sensores analogicos chamando 
   Serial.println(this->left_sensor.distance_cm);
   Serial.println(" \t dir: ");
-  this->right_sensor.distance_cm = this->right_sensor.readSensor(); // a funcao readSensor do analog_sensor
+  this->right_sensor.readSensor(); // a funcao readSensor do analog_sensor
   Serial.println(this->right_sensor.distance_cm);
   
-  this->front_sensor.enemy_close = this->front_sensor.readSensor(); // le sensores digitais chamando a 
-  this->full_left_sensor.enemy_close = this->full_left_sensor.readSensor(); // funcao readSensor
-  this->full_right_sensor.enemy_close = this->full_right_sensor.readSensor(); // do digital_sensor
-  this->vision.updateEnemyPosition(this->front_sensor, this->full_left_sensor, this->full_right_sensor, this->left_sensor, this->right_sensor);
+  this->front_sensor.readSensor(); // le sensores digitais chamando a 
+  this->full_left_sensor.readSensor(); // funcao readSensor
+  this->full_right_sensor.readSensor(); // do digital_sensor
+  
   
 
 }
 void Robot::update() {
-  uStart(MICRO_START_SIGNAL_PIN) = ustart;
-  //Serial.println("estou na robot em funcao update");
+  this->ustart.update();
+  this->readSensors();
+  this->vision.updateEnemyPosition(this->front_sensor, this->full_left_sensor, this->full_right_sensor, this->left_sensor, this->right_sensor);
+
   if (ustart.state == uStartState::START){ // gostaria de criar uma condição em que, no momento que o micro start manda sinal para começar, no micro_start.cpp, start é diferente de 0 p iniciar estrategia. 
-    this->robot_state = RobotState::INITIAL_STRATEGY; // colocar estrategia inicial (que no caso não fiz ainda)
-    readSensors();
-    this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);
-    this->robot_state = RobotState::AUTO_STRATEGY;}
-  else
+    if (this->robot_state == RobotState::AWAITING_START){
+      this->robot_state = RobotState::INITIAL_STRATEGY;
+      this->initial_strategy = get_selected_strategy(STRATEGY_PIN_A, STRATEGY_PIN_B, STRATEGY_PIN_C);
+    }
+    else if (this->robot_state == RobotState::INITIAL_STRATEGY)    
+      this->initial_strategy->update(this->left_motor, this->right_motor);
+      if(this->initial_strategy->update(this->left_motor, this->right_motor) == true){     
+       this->robot_state = RobotState::AUTO_STRATEGY;}                                                          
+    }
+    else if (this->robot_state == RobotState::AUTO_STRATEGY){
+      this->auto_strategy.updateMotors(this->vision, this->left_motor, this->right_motor);      
+    }    
+  else{
     this->robot_state = RobotState::STOPPED;
+    left_motor.setPower(0);
+    right_motor.setPower(0);    
+  }      
 }
