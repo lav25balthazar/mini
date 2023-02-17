@@ -16,6 +16,7 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     // começa movimentação     
     if (this->start_time_ms >= 0){
       this->started = true;
+      this->start_time_ms = millis();
     }
     // quando passa o tempo de movimentação, em tese, significa que ela já terminou    
     if(millis() - this->start_time_ms >= this->time_ms){
@@ -29,7 +30,7 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
       right_motor.setPower(this->right_motor_power); 
       left_motor.setPower(this->left_motor_power);            
     }
-    return finished;
+    return this->finished;
 }
 
 InitialStrategy::InitialStrategy(list<Move> moves): current_move(moves.front()){

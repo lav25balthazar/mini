@@ -11,7 +11,7 @@ Robot::Robot():front_sensor(FRONT_SENSOR_PIN), full_left_sensor(FULL_LEFT_SENSOR
 }
 
 void Robot::readSensors() {
- 
+
   
   Serial.println("esq: ");
   this->left_sensor.readSensor(); // lê sensores analogicos chamando 

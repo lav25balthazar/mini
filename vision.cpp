@@ -9,7 +9,6 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
   AnalogSensor& left_sensor,
   AnalogSensor& right_sensor) {
 
-
   //Serial.println("estou em vision updateEnemyPosition");
   if (front_sensor.enemy_close != 0) {
     this-> enemy_position = EnemyPosition::FRONT;
@@ -47,7 +46,7 @@ void Vision::updateEnemyPosition(DigitalSensor& front_sensor,
     return;
   }
   //oponente está muito perto, por isso os 2 sensores estão lendo e provavelmente o digital front também
-  else{
+  else {
     Serial.println("nao está lendo nada");
   }
 }
