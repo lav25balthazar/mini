@@ -37,19 +37,17 @@ InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(m
   this->strategy_finished = false;  //indica se estratégia incial foi concluída ou não
 };
 bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor){
-  bool move_status = this->current_move.update(left_motor, right_motor);
+  bool move_finished = this->current_move.update(left_motor, right_motor);
     
-  if (move_status == false){
-    this->current_move = this->moves.front();
-    this->moves.pop_front();
-    
-  if (move_status == true){             
+  if (move_finished == true){
+    this->current_move = this->moves.front(); 
+    this->moves.pop_front();                
       if(this->moves.empty())
         this->strategy_finished = true;
-      else
-        this->strategy_finished = false;}
-
-       
+      else{
+        this->strategy_finished = false;
+        move_finished = this->current_move.update(left_motor, right_motor);        
+      }
   }  
 
   return this->strategy_finished;
