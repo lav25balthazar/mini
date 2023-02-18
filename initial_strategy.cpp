@@ -39,13 +39,13 @@ InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(m
 bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor){
   bool move_finished = this->current_move.update(left_motor, right_motor);
     
-  if (move_finished == true){
-    this->current_move = this->moves.front(); 
-    this->moves.pop_front();                
+  if (move_finished == true){               
       if(this->moves.empty())
         this->strategy_finished = true;
       else{
         this->strategy_finished = false;
+        this->current_move = this->moves.front(); 
+        this->moves.pop_front(); 
         move_finished = this->current_move.update(left_motor, right_motor);        
       }
   }  
