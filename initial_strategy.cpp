@@ -14,12 +14,13 @@ Move::Move(int left_motor_power, int right_motor_power, int time_ms){
 //retorno paa saber se a movimentação já terminou
 bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     // começa movimentação     
-    if (this->start_time_ms >= 0){
+    if (this->start_time_ms == 0){
+      this->start_time_ms = millis();
       this->started = true;
       this->start_time_ms = millis();
     }
     // quando passa o tempo de movimentação, em tese, significa que ela já terminou    
-    if(millis() - this->start_time_ms >= this->time_ms){
+    if((millis() - this->start_time_ms) >= this->time_ms){
       this->finished == true;
       right_motor.setPower(0); 
       left_motor.setPower(0);
@@ -33,40 +34,24 @@ bool Move::update(MotorControl &left_motor, MotorControl &right_motor){
     return this->finished;
 }
 
-InitialStrategy::InitialStrategy(list<Move> moves): current_move(moves.front()){
-  this->moves = moves;
+InitialStrategy::InitialStrategy(list<Move> moves): moves(moves), current_move(moves.front()){
   this->strategy_finished = false;  //indica se estratégia incial foi concluída ou não
 };
 bool InitialStrategy::update(MotorControl &left_motor, MotorControl &right_motor){
-  bool move_status = this->current_move.update(left_motor, right_motor);
+  bool move_finished = this->current_move.update(left_motor, right_motor);
     
-  if (move_status == false){
-    this->current_move = this->moves.front();
-    move_status = this->current_move.update(left_motor, right_motor);    
-    this->moves.pop_front();
-    
-    if (move_status == true){             
-      this->current_move = this->moves.front();
-      move_status = this->current_move.update(left_motor, right_motor);    
-      this->moves.pop_front();}
-
-    if (move_status == true){             
-      this->current_move = this->moves.front();
-      move_status = this->current_move.update(left_motor, right_motor);    
-      this->moves.pop_front();}
-
-    if (move_status == true){             
-      this->current_move = this->moves.front();
-      move_status = this->current_move.update(left_motor, right_motor);    
-      this->moves.pop_front();}    
-       
+  if (move_finished == true){               
+      if(this->moves.empty())
+        this->strategy_finished = true;
+      else{
+        this->strategy_finished = false;
+        this->current_move = this->moves.front(); 
+        this->moves.pop_front(); 
+        move_finished = this->current_move.update(left_motor, right_motor);        
+      }
   }  
-  if (this->moves.empty())
-    this->strategy_finished = true;
-  else
-    this->strategy_finished = false;
 
-  return strategy_finished;
+  return this->strategy_finished;
   //retorna se o movimento inicial escolhido foi terminado ou  não
 }
 
